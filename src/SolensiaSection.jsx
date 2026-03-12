@@ -1,14 +1,16 @@
 import { useState } from 'react'
+import { Syringe, ChevronDown, X } from 'lucide-react'
 import StatusCard from './StatusCard'
 import { load, save, generateId, todayString, formatDate, SOLENSIA_KEY } from './utils/storage'
 
 export default function SolensiaSection() {
   const [injections, setInjections] = useState(() => load(SOLENSIA_KEY))
   const [date, setDate] = useState(todayString())
-  const [showHistory, setShowHistory] = useState(false)
+  const [showAllHistory, setShowAllHistory] = useState(false)
 
   const sorted = [...injections].sort((a, b) => b.date.localeCompare(a.date))
   const lastDate = sorted.length > 0 ? sorted[0].date : null
+  const visibleHistory = showAllHistory ? sorted : sorted.slice(0, 2)
 
   function handleLog(e) {
     e.preventDefault()
@@ -29,80 +31,87 @@ export default function SolensiaSection() {
   return (
     <section>
       {/* Section header */}
-      <div className="mb-4 flex items-center gap-2">
-        <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-terracotta-bg text-sm">💉</span>
-        <h2 className="font-display text-xl font-bold text-warm-800">Solensia</h2>
+      <div className="mb-4 flex items-center gap-2.5">
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-terracotta-bg">
+          <Syringe size={14} className="text-terracotta" />
+        </div>
+        <h2 className="font-display text-[17px] font-semibold text-warm-800">Pain management</h2>
       </div>
 
       {/* Status countdown */}
-      <StatusCard lastDate={lastDate} intervalDays={28} label="Next injection" icon="💉" />
+      <StatusCard lastDate={lastDate} intervalDays={28} label="Next injection" />
 
       {/* Log form */}
-      <form onSubmit={handleLog} className="mt-4">
-        <div className="flex gap-2">
+      <form onSubmit={handleLog} className="mt-5 space-y-3">
+        <div>
+          <label className="block text-[11px] font-semibold uppercase tracking-wider text-warm-400 mb-1.5">
+            Injection date
+          </label>
           <input
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="flex-1 rounded-2xl border-2 border-warm-200 bg-white px-4 py-3 text-sm font-medium text-warm-700 transition-colors focus:border-terracotta focus:outline-none"
+            className="w-full rounded-xl border-2 border-warm-200 bg-cream px-4 py-3 text-sm font-medium text-warm-700 transition-colors focus:border-terracotta focus:outline-none"
           />
-          <button
-            type="submit"
-            className="rounded-2xl bg-terracotta px-6 py-3 font-display text-sm font-semibold text-white shadow-md shadow-terracotta/25 transition-all hover:bg-terracotta-dark active:scale-95 active:shadow-sm"
-          >
-            Log 🐾
-          </button>
         </div>
+        <button
+          type="submit"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-terracotta px-6 py-3 font-body text-sm font-semibold text-white shadow-sm transition-all hover:bg-terracotta-dark active:scale-[0.98]"
+        >
+          <Syringe size={14} />
+          Log injection
+        </button>
       </form>
 
-      {/* History */}
+      {/* History - show last 2 by default */}
       {sorted.length > 0 && (
-        <div className="mt-4">
-          <button
-            onClick={() => setShowHistory(!showHistory)}
-            className="flex w-full items-center justify-between rounded-2xl bg-white/60 px-4 py-3 text-sm font-semibold text-warm-500 transition-colors hover:bg-white/80"
-          >
-            <span>History ({sorted.length})</span>
-            <span className={`transition-transform ${showHistory ? 'rotate-180' : ''}`}>▾</span>
-          </button>
-
-          {showHistory && (
-            <div className="mt-2 space-y-0">
-              {sorted.map((injection, index) => (
-                <div
-                  key={injection.id}
-                  className="timeline-item flex items-center gap-3 py-2.5 pl-2"
-                >
-                  {/* Timeline dot */}
-                  <div className="relative z-10 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-terracotta-bg">
-                    <div className="h-2.5 w-2.5 rounded-full bg-terracotta" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-1 items-center justify-between rounded-2xl bg-white px-4 py-3 shadow-sm">
-                    <div>
-                      <span className="font-display text-sm font-semibold text-warm-700">
-                        {formatDate(injection.date)}
-                      </span>
-                      {index === 0 && (
-                        <span className="ml-2 rounded-full bg-sage-bg px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-sage-dark">
-                          Latest
-                        </span>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => handleDelete(injection.id)}
-                      className="rounded-lg p-1 text-warm-300 transition-colors hover:bg-overdue-bg hover:text-overdue"
-                      aria-label="Delete record"
-                    >
-                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                        <path d="M4 4l8 8M12 4l-8 8" />
-                      </svg>
-                    </button>
-                  </div>
+        <div className="mt-6">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-warm-400 mb-3">
+            History
+          </p>
+          <div className="space-y-0">
+            {visibleHistory.map((injection, index) => (
+              <div
+                key={injection.id}
+                className="timeline-item flex items-center gap-3 py-2.5 pl-2"
+              >
+                {/* Timeline dot */}
+                <div className="relative z-10 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-terracotta-bg">
+                  <div className="h-2 w-2 rounded-full bg-terracotta" />
                 </div>
-              ))}
-            </div>
+
+                {/* Content */}
+                <div className="flex flex-1 items-center justify-between rounded-xl bg-white px-4 py-3 shadow-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="font-body text-sm font-medium text-warm-700">
+                      {formatDate(injection.date)}
+                    </span>
+                    {index === 0 && (
+                      <span className="rounded-full bg-sage-bg px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sage-dark">
+                        Latest
+                      </span>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => handleDelete(injection.id)}
+                    className="rounded-lg p-1 text-warm-300 transition-colors hover:bg-overdue-bg hover:text-overdue"
+                    aria-label="Delete record"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {sorted.length > 2 && (
+            <button
+              onClick={() => setShowAllHistory(!showAllHistory)}
+              className="mt-2 flex w-full items-center justify-center gap-1 rounded-xl py-2 text-[12px] font-medium text-warm-400 transition-colors hover:text-warm-600"
+            >
+              <span>{showAllHistory ? 'Show less' : `Show all ${sorted.length} records`}</span>
+              <ChevronDown size={14} className={`transition-transform ${showAllHistory ? 'rotate-180' : ''}`} />
+            </button>
           )}
         </div>
       )}
