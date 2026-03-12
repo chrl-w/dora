@@ -78,7 +78,7 @@ export default function BottomSheet({ type, isOpen, onClose, onDataChange }) {
       {/* Sheet */}
       <div
         ref={sheetRef}
-        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl max-h-[85vh] flex flex-col ${closing ? 'sheet-exit' : 'sheet-enter'}`}
+        className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-[10px] max-h-[85vh] flex flex-col ${closing ? 'sheet-exit' : 'sheet-enter'}`}
       >
         {/* Handle bar */}
         <div className="flex justify-center pt-3 pb-1">
@@ -88,14 +88,14 @@ export default function BottomSheet({ type, isOpen, onClose, onDataChange }) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-3">
           <div className="flex items-center gap-3">
-            <div className={`flex h-8 w-8 items-center justify-center rounded-xl ${accentBg}`}>
+            <div className={`flex h-8 w-8 items-center justify-center rounded-[10px] ${accentBg}`}>
               <Icon size={16} className={accentText} />
             </div>
             <h2 className="font-display text-[20px] font-semibold text-warm-800">{title}</h2>
           </div>
           <button
             onClick={handleClose}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-warm-100 text-warm-400 transition-colors hover:bg-warm-200"
+            className="flex h-8 w-8 items-center justify-center rounded-[10px] bg-warm-100 text-warm-400 transition-colors hover:bg-warm-200"
           >
             <X size={16} />
           </button>
@@ -106,7 +106,7 @@ export default function BottomSheet({ type, isOpen, onClose, onDataChange }) {
           {/* History */}
           {sorted.length > 0 && (
             <div className="mb-6">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-warm-400 mb-3">
+              <p className="text-[11px] font-semibold tracking-wide text-warm-400 mb-3">
                 History
               </p>
               <div className="space-y-0">
@@ -115,28 +115,28 @@ export default function BottomSheet({ type, isOpen, onClose, onDataChange }) {
                     key={record.id}
                     className="timeline-item flex items-center gap-3 py-2.5 pl-2"
                   >
-                    <div className={`relative z-10 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full ${accentBg}`}>
+                    <div className={`relative z-10 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-[10px] ${accentBg}`}>
                       <div className={`h-2 w-2 rounded-full ${isSolensia ? 'bg-terracotta' : 'bg-sage'}`} />
                     </div>
-                    <div className="flex flex-1 items-center justify-between rounded-xl bg-cream px-4 py-3">
+                    <div className="flex flex-1 items-center justify-between rounded-[10px] bg-cream px-4 py-3">
                       <div className="flex items-center gap-2">
                         <span className="font-body text-sm font-medium text-warm-700">
                           {formatDate(record.date)}
                         </span>
                         {!isSolensia && record.thyroidLevel !== undefined && (
-                          <span className="rounded-full bg-cream-dark px-2 py-0.5 text-[11px] font-semibold text-warm-500">
+                          <span className="rounded-[10px] bg-cream-dark px-2 py-0.5 text-[11px] font-semibold text-warm-500">
                             T4: {record.thyroidLevel}
                           </span>
                         )}
                         {index === 0 && (
-                          <span className={`rounded-full ${accentBg} px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${accentText}`}>
+                          <span className={`rounded-[10px] ${accentBg} px-2 py-0.5 text-[10px] font-semibold ${accentText}`}>
                             Latest
                           </span>
                         )}
                       </div>
                       <button
                         onClick={() => handleDelete(record.id)}
-                        className="rounded-lg p-1 text-warm-300 transition-colors hover:bg-overdue-bg hover:text-overdue"
+                        className="rounded-[10px] p-1 text-warm-300 transition-colors hover:bg-overdue-bg hover:text-overdue"
                         aria-label="Delete record"
                       >
                         <X size={14} />
@@ -149,7 +149,7 @@ export default function BottomSheet({ type, isOpen, onClose, onDataChange }) {
               {sorted.length > 4 && (
                 <button
                   onClick={() => setShowAllHistory(!showAllHistory)}
-                  className="mt-2 flex w-full items-center justify-center gap-1 rounded-xl py-2 text-[12px] font-medium text-warm-400 transition-colors hover:text-warm-600"
+                  className="mt-2 flex w-full items-center justify-center gap-1 rounded-[10px] py-2 text-[12px] font-medium text-warm-400 transition-colors hover:text-warm-600"
                 >
                   <span>{showAllHistory ? 'Show less' : `Show all ${sorted.length} records`}</span>
                   <ChevronDown size={14} className={`transition-transform ${showAllHistory ? 'rotate-180' : ''}`} />
@@ -160,38 +160,38 @@ export default function BottomSheet({ type, isOpen, onClose, onDataChange }) {
 
           {/* Log form */}
           <div className="border-t border-warm-200 pt-5">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-warm-400 mb-3">
+            <p className="text-[11px] font-semibold tracking-wide text-warm-400 mb-3">
               Log new {isSolensia ? 'injection' : 'blood test'}
             </p>
             <form onSubmit={handleLog} className="space-y-3">
               {isSolensia ? (
                 <div>
-                  <label className="block text-[11px] font-semibold uppercase tracking-wider text-warm-400 mb-1.5">
+                  <label className="block text-[11px] font-semibold tracking-wide text-warm-400 mb-1.5">
                     Injection date
                   </label>
                   <input
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    className={`w-full rounded-xl border-2 border-warm-200 bg-cream px-4 py-3 text-sm font-medium text-warm-700 transition-colors ${focusBorder} focus:outline-none`}
+                    className={`w-full rounded-[10px] border-2 border-warm-200 bg-cream px-4 py-3 text-sm font-medium text-warm-700 transition-colors ${focusBorder} focus:outline-none`}
                   />
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-warm-400 mb-1.5">
+                    <label className="block text-[11px] font-semibold tracking-wide text-warm-400 mb-1.5">
                       Test date
                     </label>
                     <input
                       type="date"
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
-                      className={`w-full rounded-xl border-2 border-warm-200 bg-cream px-4 py-3 text-sm font-medium text-warm-700 transition-colors ${focusBorder} focus:outline-none`}
+                      className={`w-full rounded-[10px] border-2 border-warm-200 bg-cream px-4 py-3 text-sm font-medium text-warm-700 transition-colors ${focusBorder} focus:outline-none`}
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold uppercase tracking-wider text-warm-400 mb-1.5">
-                      T4 Level (nmol/L)
+                    <label className="block text-[11px] font-semibold tracking-wide text-warm-400 mb-1.5">
+                      T4 level (nmol/L)
                     </label>
                     <input
                       type="number"
@@ -199,14 +199,14 @@ export default function BottomSheet({ type, isOpen, onClose, onDataChange }) {
                       value={thyroidLevel}
                       onChange={(e) => setThyroidLevel(e.target.value)}
                       placeholder="e.g. 32.5"
-                      className={`w-full rounded-xl border-2 border-warm-200 bg-cream px-4 py-3 text-sm font-medium text-warm-700 transition-colors ${focusBorder} focus:outline-none`}
+                      className={`w-full rounded-[10px] border-2 border-warm-200 bg-cream px-4 py-3 text-sm font-medium text-warm-700 transition-colors ${focusBorder} focus:outline-none`}
                     />
                   </div>
                 </div>
               )}
               <button
                 type="submit"
-                className={`flex w-full items-center justify-center gap-2 rounded-xl ${buttonBg} px-6 py-3 font-body text-sm font-semibold text-white shadow-sm transition-all active:scale-[0.98]`}
+                className={`flex w-full items-center justify-center gap-2 rounded-[10px] ${buttonBg} px-6 py-3 font-body text-sm font-semibold text-white shadow-sm transition-all active:scale-[0.98]`}
               >
                 <Icon size={14} />
                 Log {isSolensia ? 'injection' : 'blood test'}

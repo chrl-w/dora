@@ -15,7 +15,7 @@ export default function BottomNav({ active = 'home' }) {
           return (
             <button
               key={id}
-              className={`flex flex-col items-center gap-0.5 px-4 py-1 rounded-xl transition-colors ${
+              className={`flex flex-col items-center gap-0.5 px-4 py-1 rounded-[10px] transition-colors ${
                 isActive ? 'text-terracotta' : 'text-warm-300'
               }`}
             >
