@@ -1,1 +1,101 @@
 @import "tailwindcss";
+
+@theme {
+  --color-cream: #FAF6F0;
+  --color-cream-dark: #F0E8DA;
+  --color-terracotta: #C4623A;
+  --color-terracotta-light: #D4785A;
+  --color-terracotta-dark: #A8502E;
+  --color-terracotta-bg: #FDF0EB;
+  --color-sage: #7D9E7E;
+  --color-sage-light: #9DB89E;
+  --color-sage-dark: #5F7F60;
+  --color-sage-bg: #EDF5ED;
+  --color-warm-800: #3D2B1F;
+  --color-warm-700: #5C4033;
+  --color-warm-600: #7A5647;
+  --color-warm-500: #8B7261;
+  --color-warm-400: #A8937E;
+  --color-warm-300: #C9B9A8;
+  --color-warm-200: #E4D9CC;
+  --color-warm-100: #F2ECE4;
+  --color-overdue: #C4393A;
+  --color-overdue-bg: #FDE8E8;
+  --color-warning: #B8860B;
+  --color-warning-bg: #FFF5DC;
+
+  --font-display: "Fredoka", sans-serif;
+  --font-body: "Nunito", sans-serif;
+}
+
+* {
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+body {
+  background-color: var(--color-cream);
+}
+
+/* Smooth scroll behaviour */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom date input styling */
+input[type="date"] {
+  font-family: var(--font-body);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* Tap highlight removal for mobile */
+button, a, input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Timeline connector line */
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--color-warm-200);
+}
+
+.timeline-item:last-child::before {
+  display: none;
+}
+
+/* Countdown ring animation */
+@keyframes countdown-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.countdown-pulse {
+  animation: countdown-pulse 3s ease-in-out infinite;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-hover:active {
+  transform: scale(0.98);
+}
