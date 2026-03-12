@@ -24,8 +24,8 @@
   --color-warning: #B8860B;
   --color-warning-bg: #FFF5DC;
 
-  --font-display: "Fredoka", sans-serif;
-  --font-body: "Nunito", sans-serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
 }
 
 * {
@@ -40,7 +40,6 @@ body {
   background-color: var(--color-cream);
 }
 
-/* Smooth scroll behaviour */
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -50,11 +49,24 @@ html {
 /* Custom date input styling */
 input[type="date"] {
   font-family: var(--font-body);
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: pointer;
+}
+
+/* Remove default number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 /* Tap highlight removal for mobile */
@@ -73,7 +85,7 @@ button, a, input {
   left: 14px;
   top: 0;
   bottom: 0;
-  width: 2px;
+  width: 1.5px;
   background-color: var(--color-warm-200);
 }
 
@@ -81,14 +93,14 @@ button, a, input {
   display: none;
 }
 
-/* Countdown ring animation */
+/* Countdown ring animation - subtle */
 @keyframes countdown-pulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
+  50% { transform: scale(1.01); }
 }
 
 .countdown-pulse {
-  animation: countdown-pulse 3s ease-in-out infinite;
+  animation: countdown-pulse 4s ease-in-out infinite;
 }
 
 /* Card hover effect */
