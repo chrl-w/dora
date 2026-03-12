@@ -7,6 +7,7 @@
   --color-terracotta-light: #D4785A;
   --color-terracotta-dark: #A8502E;
   --color-terracotta-bg: #FDF0EB;
+  --color-terracotta-hero: #D4785A;
   --color-sage: #7D9E7E;
   --color-sage-light: #9DB89E;
   --color-sage-dark: #5F7F60;
@@ -24,7 +25,7 @@
   --color-warning: #B8860B;
   --color-warning-bg: #FFF5DC;
 
-  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
   --font-body: "DM Sans", system-ui, sans-serif;
 }
 
@@ -37,7 +38,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-  background-color: var(--color-cream);
+  background-color: #FFFFFF;
+  margin: 0;
+  overscroll-behavior: none;
 }
 
 html {
@@ -74,6 +77,55 @@ button, a, input {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Hero gradient */
+.hero-gradient {
+  background: linear-gradient(165deg, #C4623A 0%, #D4785A 40%, #E09070 100%);
+}
+
+/* Bottom sheet overlay */
+.sheet-overlay {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Bottom sheet slide animation */
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes sheet-down {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+.sheet-enter {
+  animation: sheet-up 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+.sheet-exit {
+  animation: sheet-down 0.25s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.overlay-enter {
+  animation: fade-in 0.25s ease forwards;
+}
+
+.overlay-exit {
+  animation: fade-out 0.2s ease forwards;
+}
+
 /* Timeline connector line */
 .timeline-item {
   position: relative;
@@ -93,21 +145,33 @@ button, a, input {
   display: none;
 }
 
-/* Countdown ring animation - subtle */
-@keyframes countdown-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.01); }
+/* Ring animation */
+@keyframes ring-draw {
+  from { stroke-dashoffset: var(--circumference); }
+  to { stroke-dashoffset: var(--target-offset); }
 }
 
-.countdown-pulse {
-  animation: countdown-pulse 4s ease-in-out infinite;
-}
-
-/* Card hover effect */
-.card-hover {
+/* Metric card tap effect */
+.metric-card {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
 }
 
-.card-hover:active {
-  transform: scale(0.98);
+.metric-card:active {
+  transform: scale(0.96);
+}
+
+/* Bottom nav safe area */
+.bottom-nav {
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+/* Scrollbar hide for sheet content */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
