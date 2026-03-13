@@ -27,11 +27,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white" key={refreshKey}>
       {/* Hero */}
-      <HeroRing solensiaLastDate={solensiaLast} bloodTestLastDate={bloodTestLast} />
+      <HeroRing />
 
       {/* Metric cards */}
       <div className="mx-auto max-w-[420px] px-5 -mt-4 relative z-10">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="flex flex-col gap-3">
           <MetricCard type="solensia" lastDate={solensiaLast} onTap={() => setActiveSheet('solensia')} />
           <MetricCard type="blood" lastDate={bloodTestLast} onTap={() => setActiveSheet('blood')} />
         </div>

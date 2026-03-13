@@ -1,110 +1,80 @@
-import { daysUntilNext } from './utils/storage'
-
-function CatIllustration({ size = 80 }) {
-  const s = size / 40
+function CatFaceLogo() {
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={32} height={32} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Ears */}
-      <path d="M10 16L7 6L15 13" stroke="currentColor" strokeWidth={1.5 / s} strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M30 16L33 6L25 13" stroke="currentColor" strokeWidth={1.5 / s} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10 16L7 6L15 13" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M30 16L33 6L25 13" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
       {/* Head */}
-      <ellipse cx="20" cy="22" rx="12" ry="11" stroke="currentColor" strokeWidth={1.5 / s} />
+      <ellipse cx="20" cy="22" rx="12" ry="11" stroke="currentColor" strokeWidth={1.5} />
       {/* Eyes */}
       <circle cx="15" cy="20" r="1.5" fill="currentColor" />
       <circle cx="25" cy="20" r="1.5" fill="currentColor" />
       {/* Nose */}
       <path d="M20 24L18.5 25.5H21.5L20 24Z" fill="currentColor" />
       {/* Whiskers */}
-      <path d="M5 21L14 22" stroke="currentColor" strokeWidth={1 / s} strokeLinecap="round" />
-      <path d="M5 25L14 24" stroke="currentColor" strokeWidth={1 / s} strokeLinecap="round" />
-      <path d="M35 21L26 22" stroke="currentColor" strokeWidth={1 / s} strokeLinecap="round" />
-      <path d="M35 25L26 24" stroke="currentColor" strokeWidth={1 / s} strokeLinecap="round" />
+      <path d="M5 21L14 22" stroke="currentColor" strokeWidth={1} strokeLinecap="round" />
+      <path d="M5 25L14 24" stroke="currentColor" strokeWidth={1} strokeLinecap="round" />
+      <path d="M35 21L26 22" stroke="currentColor" strokeWidth={1} strokeLinecap="round" />
+      <path d="M35 25L26 24" stroke="currentColor" strokeWidth={1} strokeLinecap="round" />
     </svg>
   )
 }
 
-export default function HeroRing({ solensiaLastDate, bloodTestLastDate }) {
-  const solensiaDays = solensiaLastDate ? daysUntilNext(solensiaLastDate, 28) : null
-  const bloodDays = bloodTestLastDate ? daysUntilNext(bloodTestLastDate, 90) : null
-
-  // Overall status: action needed if anything is overdue or due within 3 days
-  const needsAction =
-    (solensiaDays !== null && solensiaDays <= 3) ||
-    (bloodDays !== null && bloodDays <= 3)
-
-  const noRecords = solensiaDays === null && bloodDays === null
-
-  // Calculate worst-case progress for the ring
-  let overallProgress = 1
-  if (solensiaDays !== null) {
-    const sp = Math.max(0, Math.min(1, (28 - solensiaDays) / 28))
-    overallProgress = Math.min(overallProgress, 1 - sp)
-  }
-  if (bloodDays !== null) {
-    const bp = Math.max(0, Math.min(1, (90 - bloodDays) / 90))
-    overallProgress = Math.min(overallProgress, 1 - bp)
-  }
-  if (noRecords) overallProgress = 0
-
-  const radius = 100
-  const strokeWidth = 8
-  const circumference = 2 * Math.PI * radius
-  const dashOffset = circumference * (1 - overallProgress)
-  const viewSize = (radius + strokeWidth) * 2 + 4
-  const center = viewSize / 2
-
-  const ringColor = needsAction ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.85)'
-  const trackColor = 'rgba(255,255,255,0.15)'
-
+function SittingCatIllustration() {
   return (
-    <div className="hero-gradient relative flex flex-col items-center justify-center" style={{ height: '35vh', minHeight: 280 }}>
-      {/* Title at top */}
+    <svg width={120} height={120} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white/70">
+      {/* Ears */}
+      <path d="M28 28L24 16L33 25" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M46 28L50 16L41 25" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      {/* Head */}
+      <ellipse cx="37" cy="32" rx="11" ry="10" stroke="currentColor" strokeWidth={1.5} />
+      {/* Eyes */}
+      <circle cx="33" cy="31" r="1.2" fill="currentColor" />
+      <circle cx="41" cy="31" r="1.2" fill="currentColor" />
+      {/* Nose */}
+      <path d="M37 34L35.8 35.2H38.2L37 34Z" fill="currentColor" />
+      {/* Whiskers */}
+      <path d="M24 30L32 31.5" stroke="currentColor" strokeWidth={0.8} strokeLinecap="round" />
+      <path d="M24 34L32 33" stroke="currentColor" strokeWidth={0.8} strokeLinecap="round" />
+      <path d="M50 30L42 31.5" stroke="currentColor" strokeWidth={0.8} strokeLinecap="round" />
+      <path d="M50 34L42 33" stroke="currentColor" strokeWidth={0.8} strokeLinecap="round" />
+      {/* Body - sitting pose */}
+      <path d="M30 41C28 44 27 48 28 54C29 58 32 61 37 62C42 61 45 58 46 54C47 48 46 44 44 41" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      {/* Front legs */}
+      <path d="M31 52L30 60C30 61 30.5 62 32 62" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M43 52L44 60C44 61 43.5 62 42 62" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      {/* Tail curling up */}
+      <path d="M46 54C49 52 52 48 54 44C55 41 54 39 52 40" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      {/* Batting paw - extended to the right */}
+      <path d="M44 56L50 54" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" />
+      {/* Ball */}
+      <circle cx="53" cy="54" r="2.5" stroke="currentColor" strokeWidth={1.2} />
+      {/* Ball motion lines */}
+      <path d="M56 52L58 51" stroke="currentColor" strokeWidth={0.8} strokeLinecap="round" />
+      <path d="M56 55L58 56" stroke="currentColor" strokeWidth={0.8} strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export default function HeroRing() {
+  return (
+    <div className="hero-gradient relative flex flex-col items-center justify-center" style={{ height: '25vh', minHeight: 180 }}>
+      {/* Title with cat logo at top */}
       <div className="absolute top-0 left-0 right-0 pt-6 px-5">
-        <h1 className="font-display text-[22px] font-semibold text-white/90 tracking-tight">
-          Dora's Health
-        </h1>
-      </div>
-
-      {/* Ring + cat */}
-      <div className="relative" style={{ width: viewSize, height: viewSize }}>
-        <svg width={viewSize} height={viewSize} viewBox={`0 0 ${viewSize} ${viewSize}`} className="-rotate-90">
-          {/* Track */}
-          <circle
-            cx={center} cy={center} r={radius}
-            fill="none"
-            strokeWidth={strokeWidth}
-            stroke={trackColor}
-          />
-          {/* Progress */}
-          <circle
-            cx={center} cy={center} r={radius}
-            fill="none"
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            stroke={ringColor}
-            style={{
-              strokeDasharray: circumference,
-              strokeDashoffset: dashOffset,
-              transition: 'stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          />
-        </svg>
-
-        {/* Cat in centre */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white/80">
-          <CatIllustration size={56} />
+        <div className="flex items-center gap-2.5">
+          <div className="text-white/90">
+            <CatFaceLogo />
+          </div>
+          <h1 className="font-display text-[22px] font-semibold text-white/90 tracking-tight">
+            Dora's health
+          </h1>
         </div>
       </div>
 
-      {/* Status message below ring */}
-      <p className="mt-3 font-display text-[18px] font-medium text-white/90 tracking-wide">
-        {noRecords
-          ? 'Get started below'
-          : needsAction
-            ? 'Action needed'
-            : 'All on track'
-        }
-      </p>
+      {/* Sitting cat illustration */}
+      <div className="mt-6">
+        <SittingCatIllustration />
+      </div>
     </div>
   )
 }

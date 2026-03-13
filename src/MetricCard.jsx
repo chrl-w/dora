@@ -49,14 +49,14 @@ export default function MetricCard({ type, lastDate, onTap }) {
   return (
     <button
       onClick={onTap}
-      className={`metric-card ${bgColor} ${borderColor} w-full rounded-2xl border-2 p-5 text-left shadow-sm`}
+      className={`metric-card ${bgColor} ${borderColor} w-full rounded-[10px] border-2 p-5 text-left shadow-sm`}
     >
       {/* Icon + label */}
       <div className="flex items-center gap-2 mb-4">
-        <div className={`flex h-6 w-6 items-center justify-center rounded-lg ${isSolensia ? 'bg-terracotta-bg' : 'bg-sage-bg'}`}>
+        <div className={`flex h-6 w-6 items-center justify-center rounded-[10px] ${isSolensia ? 'bg-terracotta-bg' : 'bg-sage-bg'}`}>
           <Icon size={12} className={isSolensia ? 'text-terracotta' : 'text-sage-dark'} />
         </div>
-        <span className="font-body text-[12px] font-semibold uppercase tracking-wider text-warm-400">
+        <span className="font-body text-[12px] font-semibold tracking-wide text-warm-400">
           {label}
         </span>
       </div>
@@ -90,7 +90,7 @@ export default function MetricCard({ type, lastDate, onTap }) {
               {hasDates ? (days < 0 ? Math.abs(days) : days) : '—'}
             </span>
             {hasDates && (
-              <span className="font-body text-[8px] font-medium uppercase tracking-wider text-warm-400 mt-0.5">
+              <span className="font-body text-[8px] font-medium tracking-wide text-warm-400 mt-0.5">
                 {days === 1 || days === -1 ? 'day' : 'days'}
               </span>
             )}
